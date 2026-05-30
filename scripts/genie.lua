@@ -1078,10 +1078,17 @@ end
 
 		local version = str_to_version(_OPTIONS["gcc_version"])
 		if string.find(_OPTIONS["gcc"], "clang") or string.find(_OPTIONS["gcc"], "asmjs") or string.find(_OPTIONS["gcc"], "android") then
+if _OPTIONS["osd"] == "retro" then
+			if version < 7000 then
+				print("Clang version 7 or later needed")
+				os.exit(-1)
+			end
+else
 			if version < 130000 then
 				print("Clang version 13 or later needed")
 				os.exit(-1)
 			end
+end
 			buildoptions {
 				"-fdiagnostics-show-note-include-stack",
 				"-Wno-cast-align",
