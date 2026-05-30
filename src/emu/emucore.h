@@ -58,6 +58,11 @@
 #undef ARM
 
 
+#ifdef __LIBRETRO__
+#if !defined(__cpp_char8_t)
+typedef unsigned char char8_t;
+#endif
+#endif
 
 //**************************************************************************
 //  FUNDAMENTAL TYPES

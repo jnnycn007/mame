@@ -490,10 +490,18 @@ public:
 	::slot_option &slot_option(std::string_view device_name);
 	const ::slot_option *find_slot_option(std::string_view device_name) const;
 	::slot_option *find_slot_option(std::string_view device_name);
+#if !defined(__cpp_char8_t)
+	bool has_slot_option(std::string_view device_name) const { return bool(find_slot_option(std::string(device_name))); }
+#else
 	bool has_slot_option(std::string_view device_name) const { return bool(find_slot_option(device_name)); }
+#endif
 	const ::image_option &image_option(std::string_view device_name) const;
 	::image_option &image_option(std::string_view device_name);
+#if !defined(__cpp_char8_t)
+	bool has_image_option(std::string_view device_name) const { return m_image_options.find(std::string(device_name)) != m_image_options.end(); }
+#else
 	bool has_image_option(std::string_view device_name) const { return m_image_options.find(device_name) != m_image_options.end(); }
+#endif
 
 protected:
 	virtual void command_argument_processed() override;
