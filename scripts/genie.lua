@@ -770,6 +770,15 @@ end
 	}
 
 local version = str_to_version(_OPTIONS["gcc_version"])
+if _OPTIONS["targetos"] == "android" or _OPTIONS["targetos"] == "macosx" then
+	buildoptions_cpp {
+		"-std=c++17",
+	}
+
+	buildoptions_objcpp {
+		"-std=c++17",
+	}
+else
 	buildoptions_cpp {
 		"-std=c++20",
 	}
@@ -777,6 +786,7 @@ local version = str_to_version(_OPTIONS["gcc_version"])
 	buildoptions_objcpp {
 		"-std=c++20",
 	}
+end
 -- this speeds it up a bit by piping between the preprocessor/compiler/assembler
 	buildoptions {
 		"-pipe",
